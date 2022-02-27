@@ -9,11 +9,9 @@ resource "aws_instance" "example" {
    key_name                   = var.key_name
    user_data = <<-EOF
               #!/bin/bash
-              sudo apt-get update
-              sudo apt-get install apache2 -y
-              sudo service apache2 start
+              echo "Hello, World" > index.html
+              nohup busybox httpd -f -p ${var.server_port} &
               EOF
-
    tags =  {
 
      Name = "terrform-test"
